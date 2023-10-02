@@ -1,0 +1,57 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+// Helper function to reverse elements in a subarray
+void flip(vector<int>& arr, int end) {
+    int start = 0;
+    while (start < end) {
+        swap(arr[start], arr[end]);
+        start++;
+        end--;
+    }
+}
+
+// Function to perform Pancake Sort
+void pancakeSort(vector<int>& arr) {
+    int n = arr.size();
+    for (int currSize = n; currSize > 1; currSize--) {
+        // Find the index of the maximum element in the current unsorted array
+        int maxIndex = 0;
+        for (int i = 1; i < currSize; i++) {
+            if (arr[i] > arr[maxIndex]) {
+                maxIndex = i;
+            }
+        }
+
+        // Move the maximum element to the beginning of the array
+        if (maxIndex != currSize - 1) {
+            // Flip to bring the maximum element to the start
+            flip(arr, maxIndex);
+            
+            // Flip again to move it to its correct position
+            flip(arr, currSize - 1);
+        }
+    }
+}
+
+int main() {
+    vector<int> arr = {3, 1, 5, 2, 6, 4};
+    
+    cout << "Original array: ";
+    for (int num : arr) {
+        cout << num << " ";
+    }
+    cout << endl;
+    
+    pancakeSort(arr);
+    
+    cout << "Sorted array: ";
+    for (int num : arr) {
+        cout << num << " ";
+    }
+    cout << endl;
+    
+    return 0;
+}
