@@ -1,0 +1,31 @@
+PancakeSort(arr):
+    n = length(arr)
+    while n > 1:
+        # Find the index of the maximum element in the first n elements
+        maxIndex = FindMaxIndex(arr, n)
+        
+        # If the maximum element is not at position n, perform flips to move it there
+        if maxIndex != n-1:
+            # Flip to move the maximum element to the beginning
+            Flip(arr, maxIndex + 1)
+            
+            # Flip again to move it to the end
+            Flip(arr, n)
+        
+        # Reduce the problem size by excluding the last element
+        n = n - 1
+
+# Helper function to find the index of the maximum element in the first n elements
+FindMaxIndex(arr, n):
+    maxIndex = 0
+    for i from 1 to n-1:
+        if arr[i] > arr[maxIndex]:
+            maxIndex = i
+    return maxIndex
+
+# Helper function to flip the first k elements of the array
+Flip(arr, k):
+    i = 0
+    while i < k/2:
+        swap(arr[i], arr[k - i - 1])
+        i = i + 1
